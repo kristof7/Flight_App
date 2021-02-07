@@ -74,33 +74,65 @@ public class FlightService implements FlightInterface {
     }
 
     @Override
-    public void getNumberOfBaggagesArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
+    public void getNumberOfPiecesOfBaggagesArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
+        try {
 
-        Optional<FlightEntity> flightData = flightEntityList.stream()
-                .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
-                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
-                .findAny();
+            Optional<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
+                    .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                    .findAny();
 
-        List<ContainerEntity> baggageData = containerEntityList.stream()
-                .filter(containerEntity -> containerEntity.getFlightId().equals(flightData.get().getFlightId()))
-                .collect(Collectors.toList());
+            if (!flightData.isEmpty()) {
 
-        int baggagePieces = 0;
+                List<ContainerEntity> baggageData = containerEntityList.stream()
+                        .filter(containerEntity -> containerEntity.getFlightId().equals(flightData.get().getFlightId()))
+                        .collect(Collectors.toList());
 
-        for (ContainerEntity c : baggageData) {
-            for (Container baggage : c.getBaggage()) {
-                baggagePieces += baggage.getPieces();
+                int baggagePieces = 0;
+
+                for (ContainerEntity c : baggageData) {
+                    for (Container baggage : c.getBaggage()) {
+                        baggagePieces += baggage.getPieces();
+                    }
+                }
+                System.out.println("Total number (pieces) of baggage arriving to this airport: " + baggagePieces);
+            } else {
+                System.out.println("There are no baggages arriving to this airport according to the given data");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        System.out.println("Total number (pieces) of baggage arriving to this airport: " + baggagePieces);
-
     }
 
     @Override
-    public void getNumberOfBaggagesDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
+    public void getNumberOfPiecesOfBaggagesDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
+        try {
+            Optional<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
+                    .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                    .findAny();
 
+            if (!flightData.isEmpty()) {
+
+                List<ContainerEntity> baggageData = containerEntityList.stream()
+                        .filter(containerEntity -> containerEntity.getFlightId().equals(flightData.get().getFlightId()))
+                        .collect(Collectors.toList());
+
+                int baggagePieces = 0;
+
+                for (ContainerEntity c : baggageData) {
+                    for (Container baggage : c.getBaggage()) {
+                        baggagePieces += baggage.getPieces();
+                    }
+                }
+
+                System.out.println("Total number (pieces) of baggage departing from this airport: " + baggagePieces);
+            } else {
+                System.out.println("There are no baggages departing from this airport according to the given data");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
 }

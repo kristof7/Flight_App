@@ -11,15 +11,16 @@ import java.time.LocalDate;
 public class FlightApp {
     public static void main(String[] args) {
 
-        LocalDate dateInput = LocalDate.of(2018, 8, 16);
+        LocalDate dapartureDate = LocalDate.of(2018, 8, 16);
+        LocalDate arrivalDate = LocalDate.of(2018, 8, 23);
 
         FlightInterface flightService = new FlightService();
 
-        flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dateInput);
-        flightService.getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
-        flightService.getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode.LEW, dateInput);
-        flightService.getNumberOfBaggagesArrivingToAirport(ArrivalAirportIATACode.LEW, dateInput);
-        flightService.getNumberOfBaggagesDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
+        flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dapartureDate);
+        flightService.getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode.YYZ, dapartureDate);
+        flightService.getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode.LEW, arrivalDate);
+        flightService.getNumberOfPiecesOfBaggagesArrivingToAirport(ArrivalAirportIATACode.LEW, arrivalDate);
+        flightService.getNumberOfPiecesOfBaggagesDepartingFromAirport(DepartureAirportIATACode.YYZ, dapartureDate);
 
     }
 }
