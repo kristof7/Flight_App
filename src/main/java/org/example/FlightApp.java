@@ -1,11 +1,10 @@
 package org.example;
 
-import org.example.model.FlightEntity;
+import org.example.model.DepartureAirportIATACode;
 import org.example.repository.FlightInterface;
 import org.example.service.FlightService;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
 public class FlightApp {
@@ -16,12 +15,7 @@ public class FlightApp {
         FlightInterface flightService = new FlightService();
 
         flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dateInput);
-
-    }
-
-    public static void getData2(String IATAAirportCode, LocalDate flightDate, List<FlightEntity> flightList, List<FlightEntity> cargoList) {
-
-        System.out.println(IATAAirportCode + " " + flightDate + " " + flightList + " " + cargoList);
+        flightService.getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
 
     }
 }

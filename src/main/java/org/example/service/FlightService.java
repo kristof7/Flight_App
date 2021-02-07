@@ -4,6 +4,7 @@ import org.example.JsonContainerEntityConverter;
 import org.example.JsonFlightEntityConverter;
 import org.example.model.ContainerEntity;
 import org.example.model.Container;
+import org.example.model.DepartureAirportIATACode;
 import org.example.model.FlightEntity;
 import org.example.repository.FlightInterface;
 
@@ -50,5 +51,20 @@ public class FlightService implements FlightInterface {
         System.out.println(baggageWeight);
         System.out.println(cargoWeight);
         System.out.println(totalCargo);
+    }
+
+    @Override
+    public void getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
+
+        List<FlightEntity> numberOfFlights = flightEntityList.stream()
+                .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
+                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                .collect(Collectors.toList());
+        System.out.println("Number of flights departing from this airport: "numberOfFlights.size());
+    }
+
+    @Override
+    public void getNumberOfFlightsArrivingToAirport(String IATAAirportCode, LocalDate flightDate) {
+
     }
 }
