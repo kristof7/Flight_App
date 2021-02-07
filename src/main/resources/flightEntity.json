@@ -4,34 +4,34 @@
     "flightNumber": 5617,
     "departureAirportIATACode": "YYZ",
     "arrivalAirportIATACode": "LEW",
-    "departureDate": "2018-08-16T06:19:00 -02:00"
+    "departureDate": "2018-08-16T06:19:00-02:00"
   },
   {
     "flightId": 1,
     "flightNumber": 1786,
     "departureAirportIATACode": "SEA",
     "arrivalAirportIATACode": "GDN",
-    "departureDate": "2020-07-23T05:53:25 -02:00"
+    "departureDate": "2020-07-23T05:53:25-02:00"
   },
   {
     "flightId": 2,
     "flightNumber": 2391,
     "departureAirportIATACode": "SEA",
     "arrivalAirportIATACode": "KRK",
-    "departureDate": "2017-12-15T04:37:26 -01:00"
+    "departureDate": "2017-12-15T04:37:26-01:00"
   },
   {
     "flightId": 3,
     "flightNumber": 6341,
     "departureAirportIATACode": "SEA",
     "arrivalAirportIATACode": "KRK",
-    "departureDate": "2017-07-06T01:09:24 -02:00"
+    "departureDate": "2017-07-06T01:09:24-02:00"
   },
   {
     "flightId": 4,
     "flightNumber": 7788,
     "departureAirportIATACode": "SEA",
     "arrivalAirportIATACode": "KRK",
-    "departureDate": "2018-10-31T11:26:05 -01:00"
+    "departureDate": "2018-10-31T11:26:05-01:00"
   }
 ]
