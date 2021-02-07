@@ -2,10 +2,7 @@ package org.example.service;
 
 import org.example.JsonContainerEntityConverter;
 import org.example.JsonFlightEntityConverter;
-import org.example.model.ContainerEntity;
-import org.example.model.Container;
-import org.example.model.DepartureAirportIATACode;
-import org.example.model.FlightEntity;
+import org.example.model.*;
 import org.example.repository.FlightInterface;
 
 import java.time.LocalDate;
@@ -60,11 +57,19 @@ public class FlightService implements FlightInterface {
                 .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
                 .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
                 .collect(Collectors.toList());
-        System.out.println("Number of flights departing from this airport: "numberOfFlights.size());
+
+        System.out.println("Number of flights departing from this airport: " + numberOfFlights.size());
     }
 
     @Override
-    public void getNumberOfFlightsArrivingToAirport(String IATAAirportCode, LocalDate flightDate) {
+    public void getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
+
+        List<FlightEntity> numberOfFlights = flightEntityList.stream()
+                .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
+                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                .collect(Collectors.toList());
+
+        System.out.println("Number of flights arriving to this airport: " + numberOfFlights.size());
 
     }
 }

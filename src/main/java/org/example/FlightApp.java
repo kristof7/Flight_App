@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.model.ArrivalAirportIATACode;
 import org.example.model.DepartureAirportIATACode;
 import org.example.repository.FlightInterface;
 import org.example.service.FlightService;
@@ -16,6 +17,7 @@ public class FlightApp {
 
         flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dateInput);
         flightService.getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
+        flightService.getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode.LEW, dateInput);
 
     }
 }
