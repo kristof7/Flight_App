@@ -1,15 +1,20 @@
 package org.example.model;
 
+import java.util.List;
 import java.util.Map;
 
 public class CargoEntity {
 
 
     private Integer flightId;
-    private Map<String, Container[]> containerMap;
+    private Map<String, List<Container>> containerMap;
 
-    public Map<String, Container[]> getContainerMap() {
+    public Map<String, List<Container>> getContainerMap() {
         return containerMap;
+    }
+
+    public void setContainerMap(Map<String, List<Container>> containerMap) {
+        this.containerMap = containerMap;
     }
 
     public Integer getFlightId() {
@@ -20,7 +25,4 @@ public class CargoEntity {
         this.flightId = flightId;
     }
 
-    public void setContainerMap(Map<String, Container[]> containerMap) {
-        this.containerMap = containerMap;
-    }
 }

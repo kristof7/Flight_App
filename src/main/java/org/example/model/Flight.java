@@ -1,13 +1,15 @@
 package org.example.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Flight {
     private Integer flightId;
     private Integer flightNumber;
     private DepartureAirportIATACode departureAirportIATACode;
     private ArrivalAirportIATACode arrivalAirportIATACode;
-    private LocalDateTime departureDate;
+    private Date departureDate;
 
     public Integer getFlightId() {
         return flightId;
@@ -26,15 +28,7 @@ public class Flight {
     }
 
     public LocalDateTime getDepartureDate() {
-        return departureDate;
+        return departureDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
-
-//    {
-//        "flightId": 0,
-//            "flightNumber": 5617,
-//            "departureAirportIATACode": "YYZ",
-//            "arrivalAirportIATACode": "LEW",
-//            "departureDate": "2018-08-16T06:19:00 -02:00"
-//    },
 }
