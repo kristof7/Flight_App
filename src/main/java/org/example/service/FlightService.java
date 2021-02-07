@@ -1,27 +1,54 @@
 package org.example.service;
 
-import org.example.model.Flight;
+import org.example.JsonContainerEntityConverter;
+import org.example.JsonFlightEntityConverter;
+import org.example.model.ContainerEntity;
+import org.example.model.Container;
+import org.example.model.FlightEntity;
 import org.example.repository.FlightInterface;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FlightService implements FlightInterface {
 
+    private List<FlightEntity> flightEntityList;
+    private List<ContainerEntity> containerEntityList;
+
+    public FlightService() {
+        this.flightEntityList = JsonFlightEntityConverter.readFlightEntityJson();
+        this.containerEntityList = JsonContainerEntityConverter.readCargoEntityJson();
+    }
+
     @Override
-    public List<Flight> getCargoAndBaggageWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate, List<Flight> flightList) {
-        List<Flight> result = flightList.stream()
+    public void getCargoAndBaggageWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate) {
+
+        Optional<FlightEntity> flightData = flightEntityList.stream()
                 .filter(flight -> flight.getFlightNumber().equals(flightNumber))
                 .filter(flight -> flight.getDepartureDate().toLocalDate().equals(flightDate))
+                .findAny();
+
+        List<ContainerEntity> containers = containerEntityList.stream()
+                .filter(cargoEntity -> cargoEntity.getFlightId().equals(flightData.get().getFlightId()))
                 .collect(Collectors.toList());
-        for (Flight f : result) {
-            System.out.println("Test getCargoAndBaggageWeightFromRequestedFlight method output");
-//            System.out.println("For requested Flight Number and date: \n");
-//            System.out.println("Cargo Weight for requested Flight: " + f.getFlightNumber().intValue());
-//            System.out.println("Baggage Weight for requested Flight: " + f.getFlightNumber().intValue());
-//            System.out.println("Total Weight for requested Flight: " + f.getFlightNumber().intValue());
+
+        int baggageWeight = 0;
+        int cargoWeight = 0;
+        int totalCargo = 0;
+
+        for (ContainerEntity c : containers) {
+            for (Container baggage : c.getBaggage()) {
+                baggageWeight += baggage.getWeight();
+            }
+            for (Container cargo : c.getCargo()) {
+                cargoWeight += cargo.getWeight();
+            }
         }
-        return result;
+        totalCargo = baggageWeight + cargoWeight;
+        System.out.println(baggageWeight);
+        System.out.println(cargoWeight);
+        System.out.println(totalCargo);
     }
 }

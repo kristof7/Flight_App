@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class Flight {
+public class FlightEntity {
     private Integer flightId;
     private Integer flightNumber;
     private DepartureAirportIATACode departureAirportIATACode;

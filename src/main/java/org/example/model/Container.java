@@ -6,7 +6,6 @@ public class Container {
     private WeightUnit weightUnit;
     private Integer pieces;
 
-
     public Integer getId() {
         return id;
     }
