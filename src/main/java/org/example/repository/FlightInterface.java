@@ -10,4 +10,6 @@ public interface FlightInterface {
     void getCargoAndBaggageWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate);
     void getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate);
+    void getNumberOfBaggagesArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate);
+    void getNumberOfBaggagesDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate);
 }

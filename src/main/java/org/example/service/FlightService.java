@@ -72,4 +72,35 @@ public class FlightService implements FlightInterface {
         System.out.println("Number of flights arriving to this airport: " + numberOfFlights.size());
 
     }
+
+    @Override
+    public void getNumberOfBaggagesArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
+
+        Optional<FlightEntity> flightData = flightEntityList.stream()
+                .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
+                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                .findAny();
+
+        List<ContainerEntity> baggageData = containerEntityList.stream()
+                .filter(containerEntity -> containerEntity.getFlightId().equals(flightData.get().getFlightId()))
+                .collect(Collectors.toList());
+
+        int baggagePieces = 0;
+
+        for (ContainerEntity c : baggageData) {
+            for (Container baggage : c.getBaggage()) {
+                baggagePieces += baggage.getPieces();
+            }
+        }
+
+        System.out.println("Total number (pieces) of baggage arriving to this airport: " + baggagePieces);
+
+    }
+
+    @Override
+    public void getNumberOfBaggagesDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
+
+    }
+
+
 }

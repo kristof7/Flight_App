@@ -18,6 +18,8 @@ public class FlightApp {
         flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dateInput);
         flightService.getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
         flightService.getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode.LEW, dateInput);
+        flightService.getNumberOfBaggagesArrivingToAirport(ArrivalAirportIATACode.LEW, dateInput);
+        flightService.getNumberOfBaggagesDepartingFromAirport(DepartureAirportIATACode.YYZ, dateInput);
 
     }
 }
