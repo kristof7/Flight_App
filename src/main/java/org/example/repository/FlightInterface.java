@@ -9,7 +9,7 @@ public interface FlightInterface {
 
 
 
-    void getCargoAndBaggageWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate);
+    void getCargoAndBaggageAndTotalWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getCargoWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getBaggageWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getTotalWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate);

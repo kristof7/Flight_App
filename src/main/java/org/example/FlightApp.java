@@ -16,7 +16,7 @@ public class FlightApp {
 
         FlightInterface flightService = new FlightService();
 
-        flightService.getCargoAndBaggageWeightFromRequestedFlight(5617, dapartureDate);
+        flightService.getCargoAndBaggageAndTotalWeightFromRequestedFlight(5617, dapartureDate);
         flightService.getCargoWeightForRequestedFlight(5617, dapartureDate);
         flightService.getBaggageWeightForRequestedFlight(5617, dapartureDate);
         flightService.getTotalWeightForRequestedFlight(5617, dapartureDate);

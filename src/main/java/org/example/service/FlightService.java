@@ -21,33 +21,45 @@ public class FlightService implements FlightInterface {
     }
 
     @Override
-    public void getCargoAndBaggageWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate) {
+    public void getCargoAndBaggageAndTotalWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate) {
 
-        Optional<FlightEntity> flightData = flightEntityList.stream()
-                .filter(flight -> flight.getFlightNumber().equals(flightNumber))
-                .filter(flight -> flight.getDepartureDate().toLocalDate().equals(flightDate))
-                .findAny();
+        try {
 
-        List<ContainerEntity> containers = containerEntityList.stream()
-                .filter(cargoEntity -> cargoEntity.getFlightId().equals(flightData.get().getFlightId()))
-                .collect(Collectors.toList());
+            Optional<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flight -> flight.getFlightNumber().equals(flightNumber))
+                    .filter(flight -> flight.getDepartureDate().toLocalDate().equals(flightDate))
+                    .findAny();
 
-        int baggageWeight = 0;
-        int cargoWeight = 0;
-        int totalCargo = 0;
+            if (!flightData.isEmpty()) {
 
-        for (ContainerEntity c : containers) {
-            for (Container baggage : c.getBaggage()) {
-                baggageWeight += baggage.getWeight();
+                List<ContainerEntity> containers = containerEntityList.stream()
+                        .filter(cargoEntity -> cargoEntity.getFlightId().equals(flightData.get().getFlightId()))
+                        .collect(Collectors.toList());
+
+                int baggageWeight = 0;
+                int cargoWeight = 0;
+                int totalWeight;
+
+                for (ContainerEntity c : containers) {
+                    for (Container baggage : c.getBaggage()) {
+                        baggageWeight += baggage.getWeight();
+                    }
+                    for (Container cargo : c.getCargo()) {
+                        cargoWeight += cargo.getWeight();
+                    }
+                }
+                totalWeight = baggageWeight + cargoWeight;
+                System.out.println("Baggage Weight for requested Flight: " + baggageWeight);
+                System.out.println("Cargo Weight for requested Flight: " + cargoWeight);
+                System.out.println("Total Weight for requested Flight: " + totalWeight);
+
+            } else {
+                System.out.println("There are no requested flights according to the given data");
             }
-            for (Container cargo : c.getCargo()) {
-                cargoWeight += cargo.getWeight();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        totalCargo = baggageWeight + cargoWeight;
-        System.out.println(baggageWeight);
-        System.out.println(cargoWeight);
-        System.out.println(totalCargo);
+
     }
 
     @Override
