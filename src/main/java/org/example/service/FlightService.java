@@ -83,6 +83,38 @@ public class FlightService implements FlightInterface {
     }
 
     @Override
+    public void getBaggageWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate) {
+        try {
+            Optional<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flight -> flight.getFlightNumber().equals(flightNumber))
+                    .filter(flight -> flight.getDepartureDate().toLocalDate().equals(flightDate))
+                    .findAny();
+
+            if (!flightData.isEmpty()) {
+
+                List<ContainerEntity> containers = containerEntityList.stream()
+                        .filter(cargoEntity -> cargoEntity.getFlightId().equals(flightData.get().getFlightId()))
+                        .collect(Collectors.toList());
+
+                int baggageWeight = 0;
+
+                for (ContainerEntity c : containers) {
+                    for (Container baggage : c.getBaggage()) {
+                        baggageWeight += baggage.getWeight();
+                    }
+                }
+                System.out.println("Baggage Weight for requested Flight: " + baggageWeight);
+
+            } else {
+                System.out.println("There are no requested flights according to the given data");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
     public void getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
 
         List<FlightEntity> flightData = flightEntityList.stream()
