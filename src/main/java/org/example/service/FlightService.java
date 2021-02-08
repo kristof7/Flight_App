@@ -169,23 +169,38 @@ public class FlightService implements FlightInterface {
     @Override
     public void getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
 
-        List<FlightEntity> flightData = flightEntityList.stream()
-                .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
-                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
-                .collect(Collectors.toList());
+        try {
+            List<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
+                    .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                    .collect(Collectors.toList());
 
-        System.out.println("Number of flights departing from this airport: " + flightData.size());
+            if (!flightData.isEmpty()) {
+                System.out.println("Number of flights departing from this airport: " + flightData.size());
+            } else {
+                System.out.println("There are no requested flights according to the given data");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
 
-        List<FlightEntity> flightData = flightEntityList.stream()
-                .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
-                .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
-                .collect(Collectors.toList());
-
-        System.out.println("Number of flights arriving to this airport: " + flightData.size());
+        try {
+            List<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
+                    .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
+                    .collect(Collectors.toList());
+            if (!flightData.isEmpty()) {
+                System.out.println("Number of flights arriving to this airport: " + flightData.size());
+            } else {
+                System.out.println("There are no requested flights according to the given data");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

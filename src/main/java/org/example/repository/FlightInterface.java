@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 public interface FlightInterface {
 
-
-
     void getCargoAndBaggageAndTotalWeightFromRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getCargoWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate);
     void getBaggageWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate);

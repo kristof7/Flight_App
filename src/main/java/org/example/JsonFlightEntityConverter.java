@@ -12,14 +12,13 @@ import java.util.Collection;
 import java.util.List;
 
 public class JsonFlightEntityConverter {
+
     private static final String jsonFlightEntityFilename = "src/main/resources/flightEntity.json";
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
-    private final Type collectionType = new TypeToken<Collection<Object>>() {
+    private static final Type collectionType = new TypeToken<List<FlightEntity>>() {
     }.getType();
 
     public static List<FlightEntity> readFlightEntityJson() {
-        final Type collectionType = new TypeToken<List<FlightEntity>>() {
-        }.getType();
         List<FlightEntity> flightList = null;
         try (FileReader fileReader = new FileReader(jsonFlightEntityFilename)) {
             flightList = gson.fromJson(fileReader, collectionType);

@@ -24,7 +24,6 @@ public class JsonContainerEntityConverter {
         } catch (IOException e) {
             System.err.println("From Json, json filename exception : " + e.getMessage());
         }
-
         return containerList;
     }
 }

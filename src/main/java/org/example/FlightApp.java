@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class FlightApp {
     public static void main(String[] args) {
 
+        FlightInterface flightService = new FlightService();
+
         LocalDate dapartureDate = LocalDate.of(2018, 8, 16);
         LocalDate arrivalDate = LocalDate.of(2018, 8, 23);
-
-        FlightInterface flightService = new FlightService();
 
         flightService.getCargoAndBaggageAndTotalWeightFromRequestedFlight(5617, dapartureDate);
         flightService.getCargoWeightForRequestedFlight(5617, dapartureDate);
