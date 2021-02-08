@@ -51,25 +51,57 @@ public class FlightService implements FlightInterface {
     }
 
     @Override
+    public void getCargoWeightForRequestedFlight(Integer flightNumber, LocalDate flightDate) {
+
+        try {
+            Optional<FlightEntity> flightData = flightEntityList.stream()
+                    .filter(flight -> flight.getFlightNumber().equals(flightNumber))
+                    .filter(flight -> flight.getDepartureDate().toLocalDate().equals(flightDate))
+                    .findAny();
+
+            if (!flightData.isEmpty()) {
+
+                List<ContainerEntity> containers = containerEntityList.stream()
+                        .filter(cargoEntity -> cargoEntity.getFlightId().equals(flightData.get().getFlightId()))
+                        .collect(Collectors.toList());
+
+                int cargoWeight = 0;
+
+                for (ContainerEntity c : containers) {
+                    for (Container cargo : c.getCargo()) {
+                        cargoWeight += cargo.getWeight();
+                    }
+                }
+                System.out.println("Cargo Weight for requested Flight: " + cargoWeight);
+
+            } else {
+                System.out.println("There are no requested flights according to the given data");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void getNumberOfFlightsDepartingFromAirport(DepartureAirportIATACode IATAAirportCode, LocalDate flightDate) {
 
-        List<FlightEntity> numberOfFlights = flightEntityList.stream()
+        List<FlightEntity> flightData = flightEntityList.stream()
                 .filter(flightEntity -> flightEntity.getDepartureAirportIATACode().equals(IATAAirportCode))
                 .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
                 .collect(Collectors.toList());
 
-        System.out.println("Number of flights departing from this airport: " + numberOfFlights.size());
+        System.out.println("Number of flights departing from this airport: " + flightData.size());
     }
 
     @Override
     public void getNumberOfFlightsArrivingToAirport(ArrivalAirportIATACode IATAAirportCode, LocalDate flightDate) {
 
-        List<FlightEntity> numberOfFlights = flightEntityList.stream()
+        List<FlightEntity> flightData = flightEntityList.stream()
                 .filter(flightEntity -> flightEntity.getArrivalAirportIATACode().equals(IATAAirportCode))
                 .filter(flightEntity -> flightEntity.getDepartureDate().toLocalDate().equals(flightDate))
                 .collect(Collectors.toList());
 
-        System.out.println("Number of flights arriving to this airport: " + numberOfFlights.size());
+        System.out.println("Number of flights arriving to this airport: " + flightData.size());
 
     }
 
